@@ -11,37 +11,19 @@ afterAll(async () => {
   await app.close();
 });
 
-describe("Fastify boilerplate", () => {
-  it("returns health payload", async () => {
+describe("Health", () => {
+  it("returns ok status and service name", async () => {
     const response = await app.inject({ method: "GET", url: "/health" });
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toMatchObject({
-      status: "ok"
+      status: "ok",
+      service: "agency-project-hub",
     });
   });
 
-  it("validates task creation body", async () => {
-    const response = await app.inject({
-      method: "POST",
-      url: "/tasks",
-      payload: { title: "x" }
-    });
-
-    expect(response.statusCode).toBe(400);
-  });
-
-  it("creates task with valid title", async () => {
-    const response = await app.inject({
-      method: "POST",
-      url: "/tasks",
-      payload: { title: "Ship backend demo" }
-    });
-
-    expect(response.statusCode).toBe(201);
-    expect(response.json()).toMatchObject({
-      title: "Ship backend demo",
-      done: false
-    });
+  it("returns 404 for unknown routes", async () => {
+    const response = await app.inject({ method: "GET", url: "/not-a-route" });
+    expect(response.statusCode).toBe(404);
   });
 });
