@@ -28,6 +28,7 @@
     "skills:verify": "node scripts/skills-verify.mjs"
   },
   "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^8.5.0",
     "@fastify/cors": "^11.1.0",
     "@prisma/client": "^6.16.3",
     "fastify": "^5.6.1",

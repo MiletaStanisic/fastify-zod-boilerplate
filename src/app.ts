@@ -1,5 +1,7 @@
 import cors from "@fastify/cors";
 import Fastify from "fastify";
+import { env } from "./config/env.js";
+import { getOpenApiDocument, getSwaggerHtml } from "./docs/openapi.js";
 import { createStore } from "./store/index.js";
 import { createActivityService } from "./services/activity.js";
 import { createClientsService } from "./services/clients.js";
@@ -31,6 +33,11 @@ export function buildApp() {
   registerProjectsRoutes(app, projectsService, tasksService, clients);
   registerDashboardRoutes(app, dashboard);
   registerActivityRoutes(app, activity);
+
+  app.get("/openapi.json", async () => getOpenApiDocument(env.PORT));
+  app.get("/docs", async (_req, rep) => {
+    return rep.type("text/html").send(getSwaggerHtml());
+  });
 
   return app;
 }
