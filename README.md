@@ -26,6 +26,10 @@ npm run dev
 - `npm run docker:down` stops Docker services
 - `npm run docker:logs` tails app logs from Docker Compose
 - `npm run docker:validate` validates compose file syntax
+- `npm run prisma:generate` generates Prisma client
+- `npm run prisma:migrate:dev` runs local Prisma migration
+- `npm run prisma:migrate:deploy` applies migrations in non-dev env
+- `npm run prisma:studio` opens Prisma Studio
 
 ## Environment variables
 
@@ -296,3 +300,12 @@ Stop stack:
 ```bash
 npm run docker:down
 ```
+
+## Persistence baseline
+
+This repo now includes Prisma baseline files:
+
+- `prisma/schema.prisma`
+- `src/db/prisma.ts`
+
+Current API still runs on in-memory store by default; Prisma layer is prepared for incremental migration.

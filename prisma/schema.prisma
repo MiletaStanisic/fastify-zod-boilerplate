@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProjectStatus {
+  backlog
+  in_progress
+  review
+  done
+  blocked
+}
+
+enum ActivityType {
+  client_created
+  project_created
+  project_status_changed
+  task_created
+  task_completed
+}
+
+model Client {
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  phone     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id          String         @id @default(cuid())
+  clientId    String
+  name        String
+  description String?
+  status      ProjectStatus  @default(backlog)
+  dueDate     DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  client      Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  tasks       ProjectTask[]
+  activities  ActivityEvent[]
+
+  @@index([clientId])
+  @@index([status])
+}
+
+model ProjectTask {
+  id          String    @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  assignee    String?
+  done        Boolean   @default(false)
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([done])
+}
+
+model ActivityEvent {
+  id        String       @id @default(cuid())
+  type      ActivityType
+  message   String
+  projectId String?
+  createdAt DateTime     @default(now())
+  project   Project?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+  @@index([createdAt])
+}
