@@ -1,0 +1,9 @@
+{
+  "source": "https://github.com/vercel-labs/agent-skills",
+  "ref": "73140fc5b3a214ad3222bcf557b397b3c02d11c1",
+  "requiredSkills": [
+    "skills/deploy-to-vercel",
+    "skills/vercel-cli-with-tokens",
+    "skills/composition-patterns"
+  ]
+}
