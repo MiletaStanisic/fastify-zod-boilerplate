@@ -11,6 +11,8 @@ Apply strict backend engineering defaults for Node.js services in this repo.
 3. Emit structured JSON responses and stable error codes.
 4. Write or update tests for behavior changes.
 5. Keep latency-sensitive paths free of unnecessary allocations and blocking IO.
+6. Keep API shape backward compatible unless versioning/deprecation is explicitly added.
+7. Any persistence change must include migration strategy and rollback note.
 
 ## Required runbook
 

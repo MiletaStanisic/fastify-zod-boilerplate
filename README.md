@@ -20,8 +20,12 @@ npm run dev
 - `npm run format:check` validates Prettier formatting
 - `npm run test` runs Vitest tests (50 tests)
 - `npm run build` emits `dist/`
-- `npm run skills:sync` pins Vercel agent skills from lockfile
-- `npm run skills:verify` verifies locked skills + local governance skill
+- `npm run skills:sync` syncs optional vendor skills from lockfile
+- `npm run skills:verify` verifies required local backend skills (and optional vendor skills)
+- `npm run docker:up` starts app + Postgres + Redis in Docker
+- `npm run docker:down` stops Docker services
+- `npm run docker:logs` tails app logs from Docker Compose
+- `npm run docker:validate` validates compose file syntax
 
 ## Environment variables
 
@@ -29,6 +33,8 @@ npm run dev
 |---|---|---|
 | `PORT` | `4000` | TCP port to listen on |
 | `NODE_ENV` | `development` | `development` / `test` / `production` |
+| `DATABASE_URL` | `postgresql://app:app@localhost:5434/app?schema=public` | Local database URL |
+| `REDIS_URL` | `redis://localhost:6380` | Local Redis URL |
 
 ## API reference
 
@@ -272,3 +278,21 @@ tests/
   *.test.ts           # 50 integration tests across all endpoints
 ```
 
+## Docker local dev
+
+```bash
+cp .env.example .env
+npm run docker:up
+```
+
+Default containerized stack:
+
+- API: `http://localhost:4000`
+- Postgres: `localhost:5434`
+- Redis: `localhost:6380`
+
+Stop stack:
+
+```bash
+npm run docker:down
+```

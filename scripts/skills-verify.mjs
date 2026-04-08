@@ -6,19 +6,27 @@ const thisFile = fileURLToPath(import.meta.url);
 const repoRoot = join(dirname(thisFile), "..");
 
 const lock = JSON.parse(readFileSync(join(repoRoot, "skills-lock.json"), "utf8"));
-const localSkill = join(repoRoot, ".agents", "skills", "backend-governance", "SKILL.md");
 const vendorDir = join(repoRoot, ".agents", "vendor", "vercel-agent-skills");
 
 const missing = [];
+const localSkills = Array.isArray(lock.requiredLocalSkills) ? lock.requiredLocalSkills : [];
+const vendorConfig = lock.vendor ?? {
+  enabled: false,
+  requiredSkills: []
+};
 
-if (!existsSync(localSkill)) {
-  missing.push(".agents/skills/backend-governance/SKILL.md");
+for (const localSkill of localSkills) {
+  if (!existsSync(join(repoRoot, localSkill))) {
+    missing.push(localSkill);
+  }
 }
 
-for (const skillPath of lock.requiredSkills) {
-  const fullPath = join(vendorDir, skillPath);
-  if (!existsSync(fullPath)) {
-    missing.push(`.agents/vendor/vercel-agent-skills/${skillPath}`);
+if (vendorConfig.enabled) {
+  for (const skillPath of vendorConfig.requiredSkills) {
+    const fullPath = join(vendorDir, skillPath);
+    if (!existsSync(fullPath)) {
+      missing.push(`.agents/vendor/vercel-agent-skills/${skillPath}`);
+    }
   }
 }
 
@@ -27,7 +35,9 @@ if (missing.length > 0) {
   for (const item of missing) {
     console.error(`- ${item}`);
   }
-  console.error("Run: npm run skills:sync");
+  if (vendorConfig.enabled) {
+    console.error("Run: npm run skills:sync");
+  }
   process.exit(1);
 }
 

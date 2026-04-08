@@ -23,15 +23,17 @@ npm run build
 
 ## Required skill set
 
-- Local governance skill: `.agents/skills/backend-governance/SKILL.md`
-- Locked external skill pack: `skills-lock.json` synced into `.agents/vendor/vercel-agent-skills`
-- Minimum required Vercel skills from lockfile:
-  - `deploy-to-vercel`
-  - `vercel-cli-with-tokens`
-  - `composition-patterns`
+- Local backend skills (required):
+  - `.agents/skills/backend-governance/SKILL.md`
+  - `.agents/skills/api-contracts/SKILL.md`
+  - `.agents/skills/validation-and-errors/SKILL.md`
+  - `.agents/skills/data-layer/SKILL.md`
+  - `.agents/skills/testing-quality/SKILL.md`
+  - `.agents/skills/security-ops/SKILL.md`
+- Vendor skill packs are optional and controlled through `skills-lock.json`.
 
 ## Working agreement for assistants
 
-1. Read this file and `.agents/skills/backend-governance/SKILL.md` before coding.
+1. Read this file and all required local skill files before coding.
 2. If requested behavior conflicts with these guardrails, propose a safe alternative first.
 3. Keep commits small and explain architecture-impacting decisions in PR notes.

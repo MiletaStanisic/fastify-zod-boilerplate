@@ -1,9 +1,17 @@
 {
-  "source": "https://github.com/vercel-labs/agent-skills",
-  "ref": "73140fc5b3a214ad3222bcf557b397b3c02d11c1",
-  "requiredSkills": [
-    "skills/deploy-to-vercel",
-    "skills/vercel-cli-with-tokens",
-    "skills/composition-patterns"
-  ]
+  "version": 1,
+  "requiredLocalSkills": [
+    ".agents/skills/backend-governance/SKILL.md",
+    ".agents/skills/api-contracts/SKILL.md",
+    ".agents/skills/validation-and-errors/SKILL.md",
+    ".agents/skills/data-layer/SKILL.md",
+    ".agents/skills/testing-quality/SKILL.md",
+    ".agents/skills/security-ops/SKILL.md"
+  ],
+  "vendor": {
+    "enabled": false,
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "ref": "73140fc5b3a214ad3222bcf557b397b3c02d11c1",
+    "requiredSkills": []
+  }
 }
