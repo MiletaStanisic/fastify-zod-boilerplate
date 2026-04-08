@@ -31,7 +31,7 @@ export function buildApp() {
   app.get("/health", async () => {
     return {
       status: "ok",
-      service: "backend-fastify-zod-boilerplate"
+      service: "fastify-zod-boilerplate"
     };
   });
 

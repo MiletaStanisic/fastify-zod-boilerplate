@@ -1,5 +1,5 @@
 {
-  "name": "backend-fastify-zod-boilerplate",
+  "name": "fastify-zod-boilerplate",
   "version": "0.1.0",
   "private": false,
   "description": "Production-oriented Fastify + TypeScript backend boilerplate",

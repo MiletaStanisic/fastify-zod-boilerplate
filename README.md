@@ -1,4 +1,4 @@
-# backend-fastify-zod-boilerplate
+# fastify-zod-boilerplate
 
 Fastify + TypeScript starter for backend demo apps with strict lint/test/build and agent governance.
 
